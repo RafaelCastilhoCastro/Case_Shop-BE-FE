@@ -1,9 +1,11 @@
+import { BaseDB } from "../data/BaseDB";
 import { Request, Response } from "express";
-import connection from "../database/connections";
+
 export const getAllClients =async (req: Request, res: Response) => {
     let errorCode = 400;
+    const baseDB = new BaseDB()
     try{
-        const clients = await connection.select('*').from('Case_Clients');
+        const clients = await baseDB.connection.select('*').from('Case_Clients');
 
         res.status(200).send(clients)
 
