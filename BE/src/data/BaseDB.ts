@@ -1,7 +1,11 @@
 import { knex } from 'knex'
 
+import dotenv from "dotenv"
+
+dotenv.config()
+
 export class BaseDB {
-    public connection = knex({
+    static connection = knex({
         client: "mysql",
         connection: {
             host: process.env.DB_HOST,
