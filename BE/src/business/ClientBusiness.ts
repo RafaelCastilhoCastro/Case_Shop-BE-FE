@@ -22,7 +22,6 @@ export class ClientBusiness {
         }
     }
 
-
     getAllClients = async (): Promise<Client[]> => {
         try {
             const clientsList = await this.clientData.getAllClients()

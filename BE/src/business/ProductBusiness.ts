@@ -21,7 +21,6 @@ export class ProductBusiness {
         }
     }
 
-
     getStock = async (): Promise<StockOutputDTO[]> => {
         try {
             const stock: StockDTO[] = await this.productData.getStock()

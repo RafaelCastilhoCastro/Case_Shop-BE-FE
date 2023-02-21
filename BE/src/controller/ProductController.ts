@@ -14,7 +14,6 @@ export class ProductController {
         }
     }
 
-
     getStock = async (req: Request, res: Response) => {
         try {
             const stock: StockOutputDTO[] = await this.productBusiness.getStock()

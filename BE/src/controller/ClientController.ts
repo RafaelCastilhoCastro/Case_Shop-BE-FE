@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { ClientBusiness } from "../business/ClientBusiness"
-import { CustomError } from "../errors/CustomError"
 import { Client, ClientCreateInputDTO } from "../models/Client"
 
 export class ClientController {
@@ -18,7 +17,6 @@ export class ClientController {
             res.status(error.statusCode || 400).send(error.message || error.sqlMessage)
         }
     }
-
 
     getAllClients = async (req: Request, res: Response) => {
         try {

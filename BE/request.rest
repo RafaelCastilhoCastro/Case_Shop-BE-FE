@@ -3,7 +3,7 @@ POST http://localhost:3003/client/create
 Content-Type: application/json
 
 {
-    "name": "Client5"
+    "name": "Client3"
 }
 
 ### Get all clients
@@ -26,7 +26,7 @@ POST http://localhost:3003/order/neworder
 Content-Type: application/json
 
 {
-    "fkClient": "06be122a-feeb-4a91-8089-ff10dae3c415",
+    "fkClient": "16f7a0de-1e3f-4081-be79-fd0c6a8a5426",
     "deliveryDate":"2023-02-15",
     "productList":[
         {

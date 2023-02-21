@@ -1,36 +1,32 @@
 import { BaseDB } from "./data/BaseDB"
 
 export class Migrations extends BaseDB {
-    static tableClients = "Case_Shop_Clients"
-    static tableProducts = "Case_Shop_Products"
-    static tableOrders = "Case_Shop_Orders"
-
     public static async createTables(): Promise<void> {
         Migrations.connection.raw(`
-            CREATE TABLE IF NOT EXISTS ${this.tableClients} (
+            CREATE TABLE IF NOT EXISTS ${BaseDB.tableClients} (
                 id VARCHAR(255) primary key,
                 name varchar(255) unique
             );
         
-            CREATE TABLE IF NOT EXISTS ${this.tableProducts} (
+            CREATE TABLE IF NOT EXISTS ${BaseDB.tableProducts} (
                 id VARCHAR(255) primary key,
                 name varchar(255),
                 price float ,
                 qty_stock INT
             );
         
-            CREATE TABLE IF NOT EXISTS ${this.tableOrders} (
+            CREATE TABLE IF NOT EXISTS ${BaseDB.tableOrders} (
                 id VARCHAR(255) primary key,
                 order_date DATE,
                 delivery_date DATE,
                 qty int,
                 fk_client VARCHAR(255),
                 fk_product VARCHAR(255) ,
-                FOREIGN KEY (fk_client) REFERENCES ${this.tableClients} (id),
-                FOREIGN KEY (fk_product) REFERENCES ${this.tableProducts} (id)
+                FOREIGN KEY (fk_client) REFERENCES ${BaseDB.tableClients} (id),
+                FOREIGN KEY (fk_product) REFERENCES ${BaseDB.tableProducts} (id)
             );
 
-            INSERT INTO ${this.tableProducts} VALUES 
+            INSERT INTO ${BaseDB.tableProducts} VALUES 
                 ('1' , 'Tomate Italiano', 7.99 , 700),
                 ('2', 'Couve Flor Bandeja 250G', 7.99, 500),
                 ('3', 'Repolho Roxo Orgânico Embalagem 350G',  6.99, 300),
@@ -64,11 +60,11 @@ export class Migrations extends BaseDB {
         `)
             .then(() => {
                 console.log('Tables created.')
-                console.log(`${this.tableProducts} populated.`)
+                console.log(`${BaseDB.tableProducts} populated.`)
             })
             .catch((error: any) => console.log(error.sqlMessage || error.message))
             .finally(() => {
-                this.connection.destroy()
+                BaseDB.connection.destroy()
             })
     }
 }

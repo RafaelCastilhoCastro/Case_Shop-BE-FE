@@ -5,6 +5,10 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export class BaseDB {
+    protected static tableClients = "Case_Shop_Clients"
+    protected static tableProducts = "Case_Shop_Products"
+    protected static tableOrders = "Case_Shop_Orders"
+
     static connection = knex({
         client: "mysql",
         connection: {

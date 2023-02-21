@@ -1,14 +1,12 @@
 import { CustomError } from "../errors/CustomError"
-import { Product, StockDTO } from "../models/Product"
+import { Product } from "../models/Product"
 import { BaseDB } from "./BaseDB"
 
 
 export class ProductData extends BaseDB {
-    private tableName = "Case_Shopper_Products"
-
     getAllProducts = async (): Promise<Product[]> => {
         try {
-            const productList = await ProductData.connection(this.tableName)
+            const productList = await ProductData.connection(BaseDB.tableProducts)
                 .select()
             return productList
         } catch (error: any) {
@@ -19,7 +17,7 @@ export class ProductData extends BaseDB {
 
     getStock = async () => {
         try {
-            const stockList = await ProductData.connection(this.tableName)
+            const stockList = await ProductData.connection(BaseDB.tableProducts)
                 .select('name', 'qty_stock')
             return stockList
         } catch (error: any) {
