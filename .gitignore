@@ -11,7 +11,7 @@ FE/node_modules
 /coverage
 
 # production
-/build
+BE/build
 
 # misc
 .DS_Store
