@@ -1,24 +1,8 @@
-import { getStock } from './endpoints/stock'
-import { createOrder } from './endpoints/createOrder'
-import { getAllProducts } from './endpoints/allProducts'
-import { getAllClients } from './endpoints/allClients'
-import { createClient } from './endpoints/createClient'
-import { ping } from './endpoints/ping'
 import { app } from './app'
+import { clientRouter } from './router/clientRouter'
+import { orderRouter } from './router/orderRouter'
+import { productRouter } from './router/productRouter'
 
-app.get("/ping", ping)
-
-//retorna dados dos clientes
-app.get("/clients", getAllClients)
-
-//retorna dados dos produtos
-app.get("/products", getAllProducts)
-
-//retorna estoque
-app.get("/stock", getStock)
-
-//retorna dados dos produtos
-app.post("/order", createOrder)
-
-//add client
-app.post("/client", createClient)
+app.use("/client", clientRouter)
+app.use("/product", productRouter)
+app.use("/order", orderRouter)

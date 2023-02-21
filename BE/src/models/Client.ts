@@ -1,24 +1,24 @@
-export class ClientCreateInputDTO{
+export class Client {
     constructor(
-        private name:string
-    ){}
+        private id: string,
+        private name: string
+    ) { }
 
-    getName(){
+    getName() {
         return this.name
+    }
+
+    getId() {
+        return this.id
     }
 }
 
-export class Client{
+export class ClientCreateInputDTO {
     constructor(
-        private name:string,
-        private id:string
-    ){}
+        private name: string
+    ) { }
 
-    getName(){
+    getName() {
         return this.name
-    }
-    
-    getId(){
-        return this.id
     }
 }
