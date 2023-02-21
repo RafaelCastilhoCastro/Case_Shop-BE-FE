@@ -14,9 +14,9 @@ export default function Form({ productList, setProductList }) {
     //Da\dos do Form
     const [form, onChange, restForm] = useForm({ client: "", product: "", qty: 1, deliveryDate: "" })
     //Dados Clientes
-    const [dataClient, isloadingClient, erroClient, upClient, setUpClient] = useRequestData('http://localhost:3003/clients');
+    const [dataClient, isloadingClient, erroClient, upClient, setUpClient] = useRequestData('http://localhost:3003/client/getclients');
     //Dados Produtos
-    const [dataProduct, isloadingProduct, erroProduct] = useRequestData('http://localhost:3003/products');
+    const [dataProduct, isloadingProduct, erroProduct] = useRequestData('http://localhost:3003/product/getproducts');
     //---------------------------------- CLIENTEAS ----------------------------------------------------------------
     //CLIENTE SELECIONADO
     const selectClient = !isloadingClient && dataClient && dataClient.find((dClient) => {
@@ -30,7 +30,7 @@ export default function Form({ productList, setProductList }) {
         {
             "name": form.client
         }
-        axios.post('http://localhost:3003/client', body, {})
+        axios.post('http://localhost:3003/client/create', body, {})
             .then((response) => {
                 setUpClient(!upClient);
                 console.log(response);
@@ -53,9 +53,9 @@ export default function Form({ productList, setProductList }) {
     //add produto
     const addProduct = () => {
         console.log(productList);
-        const newPproduct = selectProduct;
-        newPproduct.qty = form.qty;
-        setProductList([...productList, newPproduct])
+        const newProduct = selectProduct;
+        newProduct.qty = form.qty;
+        setProductList([...productList, newProduct])
     }
     //---------------------------------- ORDER ----------------------------------------------------------------
 
@@ -69,12 +69,12 @@ export default function Form({ productList, setProductList }) {
                 return { "id": p.id, "qty": Number(p.qty) }
             })
             const body = {
-                "fk_client": Number(selectClient.id),
-                "delivery_date": deliveryDateDb,
-                "products": productListDB
+                "fkClient": selectClient.id,
+                "deliveryDate": deliveryDateDb,
+                "productList": productListDB
             }
 
-            axios.post('http://localhost:3003/order', body, {})
+            axios.post('http://localhost:3003/order/neworder', body, {})
                 .then((response) => {
                     console.log(response);
                     goToEndOrder(navigate)
@@ -140,10 +140,10 @@ export default function Form({ productList, setProductList }) {
                     <input id="qty" type={"number"} name="qty" value={form.qty} onChange={onChange}></input>
                     <p>R$: {selectProduct && parseFloat(selectProduct.price * form.qty).toFixed(2)}</p>
 
-                    {selectProduct && visebleBottonProduct && selectProduct.qty_stock >= form.qty &&
+                    {selectProduct && visebleBottonProduct && selectProduct.qtyStock >= form.qty &&
                         <button type='button' onClick={() => { addProduct() }}>Add</button>
                     }
-                    {selectProduct && selectProduct.qty_stock < form.qty &&
+                    {selectProduct && selectProduct.qtyStock < form.qty &&
                         <h3>Produto sem Estoque!</h3>
                     }
                 </div>
